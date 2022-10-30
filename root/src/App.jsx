@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
 import "./App.css";
 
 export default function App() {
@@ -22,10 +23,14 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<h1>RANDOM QUOTE</h1>
-			<p>{quotes}</p>
-			<p>{author}</p>
-			<button onClick={QuotesApi}>Generate New Random Quote</button>
+			<h1>Quotes Generator</h1>
+			<div className="container">
+				<p>{quotes}</p>
+				<p>- {author}</p>
+			</div>
+			<Button onClick={QuotesApi} variant="outlined" color="success">
+				Generate New Random Quote
+			</Button>
 		</div>
 	);
 }
