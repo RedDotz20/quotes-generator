@@ -1,4 +1,4 @@
-# React-App-Template with Vite
+# Quotes Generator App
 
 ### Getting Started
 ```
