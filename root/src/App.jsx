@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import "./App.css";
+import "./index.css";
 
 export default function App() {
 	const [quotes, setQuotes] = useState("");
