@@ -12,8 +12,9 @@ export default function App() {
 			.then((response) => response.json())
 			.then((data) => {
 				const id = Math.floor(Math.random() * data.length);
-				setAuthor(data[id].author === null ? "Unknown" : data[id].author);
-				setQuotes(data[id].text);
+				const { author, text } = data[id];
+				setAuthor(author === null ? "Unknown" : author);
+				setQuotes(text);
 			})
 			.catch((err) => console.error(err));
 	}
