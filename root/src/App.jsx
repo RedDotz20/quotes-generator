@@ -1,38 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery } from "react-query";
+import axios from "axios";
 import Button from "@mui/material/Button";
 import "./App.css";
 import "./index.css";
 
 export default function App() {
-	const [quotes, setQuotes] = useState("");
-	const [author, setAuthor] = useState("");
+	const { isLoading, data, error, refetch } = useQuery(
+		"repoData",
+		() => {
+			return axios.get("https://type.fit/api/quotes");
+		},
+		{ refetchOnMount: false }
+	);
+	const id = Math.floor(Math.random() * data?.data.length);
 
-	async function QuotesApi() {
-		return await fetch("https://type.fit/api/quotes")
-			.then((response) => response.json())
-			.then((data) => {
-				const id = Math.floor(Math.random() * data.length);
-				const { author, text } = data[id];
-				setAuthor(author === null ? "Unknown" : author);
-				setQuotes(text);
-			})
-			.catch((err) => console.error(err));
-	}
-
-	useEffect(() => {
-		QuotesApi();
-	}, []);
-
+	if (isLoading) return <h2>"Loading..."</h2>;
+	if (error) return "An error has occurred: " + error.message;
 	return (
-		<div className="App">
-			<h1>Quotes Generator</h1>
+		<>
+			<h1>QUOTES GENERATOR:</h1>
 			<div className="container">
-				<p>{quotes}</p>
-				<p>- {author}</p>
+				<p>{data?.data[id].text}</p>
+				<p>- {data?.data[id].author}</p>
 			</div>
-			<Button onClick={QuotesApi} variant="outlined" color="success">
+
+			<Button onClick={refetch} variant="outlined" color="success">
 				Generate New Random Quote
 			</Button>
-		</div>
+		</>
 	);
 }
