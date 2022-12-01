@@ -5,27 +5,38 @@ import Button from "@mui/material/Button";
 import "./App.css";
 import "./index.css";
 
-export default function App() {
-	const { isLoading, data, error, refetch } = useQuery(
-		"repoData",
-		() => {
-			return axios.get("https://type.fit/api/quotes");
-		},
-		{ refetchOnMount: false }
-	);
-	const id = Math.floor(Math.random() * data?.data.length);
+async function fetchQuotes() {
+	return await axios
+		.get("https://type.fit/api/quotes")
+		.then((result) => result.data);
+}
 
-	if (isLoading) return <h2>"Loading..."</h2>;
-	if (error) return "An error has occurred: " + error.message;
+export default function App() {
+	const { isLoading, isError, data, refetch, error } = useQuery(
+		"Data",
+		fetchQuotes,
+		{
+			// enabled: false,
+			refetchOnWindowFocus: true,
+			staleTime: 0,
+			cacheTime: 0,
+			refetchInterval: 0,
+		}
+	);
+	const randomId = Math.floor(Math.random() * data?.length);
+	if (isLoading) return <div>"Loading..."</div>;
+	if (isError) return `An error has occurred: ${error.message}`;
 	return (
 		<>
-			<h1>QUOTES GENERATOR:</h1>
-			<div className="container">
-				<p>{data?.data[id].text}</p>
-				<p>- {data?.data[id].author}</p>
+			<div className="bg-white rounded-lg text-black p-6">
+				<h1>QUOTES GENERATOR:</h1>
+				<div>
+					<p>{data[randomId].text}</p>
+					<p>- {data[randomId].author}</p>
+				</div>
 			</div>
 
-			<Button onClick={refetch} variant="outlined" color="success">
+			<Button onClick={refetch} variant="contained" color="success">
 				Generate New Random Quote
 			</Button>
 		</>
