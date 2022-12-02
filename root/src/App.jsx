@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import Button from "@mui/material/Button";
@@ -12,15 +12,12 @@ async function fetchQuotes() {
 }
 
 export default function App() {
+	console.log("rendered");
 	const { isLoading, isError, data, refetch, error } = useQuery(
 		"Data",
 		fetchQuotes,
 		{
-			// enabled: false,
-			refetchOnWindowFocus: true,
-			staleTime: 0,
-			cacheTime: 0,
-			refetchInterval: 0,
+			refetchInterval: 6000,
 		}
 	);
 	const randomId = Math.floor(Math.random() * data?.length);
@@ -42,3 +39,32 @@ export default function App() {
 		</>
 	);
 }
+
+// export default function App() {
+// 	const { isLoading, error, data, refetch } = useQuery("repoData", () =>
+// 		fetch("https://api.github.com/repos/tannerlinsley/react-query").then(
+// 			(res) => res.json()
+// 		)
+// 	);
+
+// 	if (isLoading) return "Loading...";
+
+// 	if (error) return "An error has occurred: " + error.message;
+// 	console.log("rerender");
+
+// 	return (
+// 		<>
+// 			<div>
+// 				<h1>{data.name}</h1>
+// 				<p>{data.description}</p>
+// 				<strong>👀 {data.subscribers_count}</strong>{" "}
+// 				<strong>✨ {data.stargazers_count}</strong>{" "}
+// 				<strong>🍴 {data.forks_count}</strong>
+// 			</div>
+
+// 			<Button onClick={refetch} variant="contained" color="success">
+// 				Generate New Random Quote
+// 			</Button>
+// 		</>
+// 	);
+// }
