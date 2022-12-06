@@ -1,16 +1,17 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { queryClient } from "../App";
+import { queryClient } from "../main";
+import Loading from "./Loading";
 
 export default function Quotes() {
 	const fetchAxiosQuotes = async () => {
 		return await axios
 			.get("https://type.fit/api/quotes")
-			.then((res) => res.data);
+			.then((response) => response.data);
 	};
 
-	const { isFetching, isLoading, isError, data, error, refetch } = useQuery({
+	const { isFetching, isLoading, isError, data, error } = useQuery({
 		queryKey: ["quotes"],
 		queryFn: fetchAxiosQuotes,
 		refetchOnWindowFocus: false,
@@ -18,7 +19,7 @@ export default function Quotes() {
 		staleTime: Infinity,
 	});
 
-	if (isFetching || isLoading) return <h2>L O A D I N G...</h2>;
+	if (isFetching || isLoading) return <Loading />;
 	if (isError) return `An error has occurred: ${error.message}`;
 
 	const randomId = Math.floor(Math.random() * data?.length);
@@ -26,16 +27,12 @@ export default function Quotes() {
 
 	return (
 		<>
-			<p>
-				"<strong>{data[randomId].text}</strong>"
-			</p>
-			<p>
-				<i>
-					{data[randomId].author === null
-						? "- Unknown"
-						: `- ${data[randomId].author}`}
-				</i>
-			</p>
+			<h2 className="font-semibold">" {data[randomId].text} "</h2>
+			<h3 className="italic">
+				{data[randomId].author === null
+					? "- Unknown"
+					: `- ${data[randomId].author}`}
+			</h3>
 		</>
 	);
 }

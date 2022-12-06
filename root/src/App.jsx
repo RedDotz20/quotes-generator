@@ -1,25 +1,12 @@
 import React from "react";
 import Quotes from "./components/Quotes";
 import Button from "@mui/material/Button";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 import { refetchQuotes } from "./components/Quotes";
-import "./index.css";
-import "./App.css";
-
-export const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-			refetchOnMount: false,
-			staleTime: Infinity,
-		},
-	},
-});
+import "./styles/index.css";
 
 export default function App() {
 	return (
-		<QueryClientProvider client={queryClient}>
+		<>
 			<h1 className="font-semibold text-xl text-white mb-5">
 				QUOTES GENERATOR
 			</h1>
@@ -34,7 +21,6 @@ export default function App() {
 			>
 				Generate New Random Quote
 			</Button>
-			<ReactQueryDevtools initialIsOpen={true} />
-		</QueryClientProvider>
+		</>
 	);
 }
