@@ -1,70 +1,40 @@
-import { useQuery } from "react-query";
-import axios from "axios";
+import React from "react";
+import Quotes from "./components/Quotes";
 import Button from "@mui/material/Button";
-import "./App.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { refetchQuotes } from "./components/Quotes";
 import "./index.css";
+import "./App.css";
+
+export const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			refetchOnMount: false,
+			staleTime: Infinity,
+		},
+	},
+});
 
 export default function App() {
-	async function fetchAxiosQuotes() {
-		return await axios
-			.get("https://type.fit/api/quotes")
-			.then((res) => res.data);
-	}
-	const { isFetching, isLoading, isError, data, error, refetch } = useQuery({
-		queryKey: ["quotes"],
-		queryFn: fetchAxiosQuotes,
-		refetchOnWindowFocus: false,
-		refetchOnMount: true,
-		staleTime: 60 * 1000,
-	});
-
-	if (isFetching)
-		return (
-			<>
-				<div class="flex justify-center items-center text-green-500">
-					<div
-						class="spinner-border animate-spin inline-block w-8 h-8 border-rounded-full text-green-500"
-						role="status"
-					></div>
-				</div>
-				<h2>LOADING</h2>
-			</>
-		);
-
-	if (isLoading)
-		return (
-			<div class="flex justify-center items-center">
-				<div
-					class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
-					role="status"
-				></div>
-			</div>
-		);
-
-	if (isError) return `An error has occurred: ${error.message}`;
-
-	const randomId = Math.floor(Math.random() * data?.length);
-
-	console.log(data[randomId]);
 	return (
-		<>
-			<div className="bg-white rounded-lg text-black p-6">
-				<h1>QUOTES GENERATOR:</h1>
-				<div>
-					<p>"{data[randomId].text}"</p>
-					<p>
-						<i>
-							{data[randomId].author === null
-								? "- Unknown"
-								: `- ${data[randomId].author}`}
-						</i>
-					</p>
-				</div>
+		<QueryClientProvider client={queryClient}>
+			<h1 className="font-semibold text-xl text-white mb-5">
+				QUOTES GENERATOR
+			</h1>
+			<div className="min-h-[150px] min-w-[720px] max-w-[720px] p-6 bg-white rounded-lg text-black flex flex-col justify-center mb-4">
+				<Quotes />
 			</div>
-
-			<Button onClick={refetch} variant="contained" color="success">
+			<Button
+				onClick={refetchQuotes}
+				className="w-full"
+				variant="contained"
+				color="success"
+			>
 				Generate New Random Quote
 			</Button>
-		</>
+			<ReactQueryDevtools initialIsOpen={true} />
+		</QueryClientProvider>
 	);
 }
