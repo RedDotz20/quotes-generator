@@ -1,26 +1,47 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import "./App.css";
 import "./index.css";
 
-async function fetchAxiosQuotes() {
-	return await axios.get("https://type.fit/api/quotes").then((res) => res.data);
-}
-
 export default function App() {
-	const { status, data, error, refetch } = useQuery({
+	async function fetchAxiosQuotes() {
+		return await axios
+			.get("https://type.fit/api/quotes")
+			.then((res) => res.data);
+	}
+	const { isFetching, isLoading, isError, data, error, refetch } = useQuery({
 		queryKey: ["quotes"],
 		queryFn: fetchAxiosQuotes,
+		refetchOnWindowFocus: false,
+		refetchOnMount: true,
+		staleTime: 60 * 1000,
 	});
-	if (status === "loading")
+
+	if (isFetching)
 		return (
-			<div className="flex flex-col justify-center text-center">
-				<div className="animate-spin bg-transparent h-4 sw-4 rounded-full border-t-2 border-blue-900"></div>
-				<h2>Loading...</h2>
+			<>
+				<div class="flex justify-center items-center text-green-500">
+					<div
+						class="spinner-border animate-spin inline-block w-8 h-8 border-rounded-full text-green-500"
+						role="status"
+					></div>
+				</div>
+				<h2>LOADING</h2>
+			</>
+		);
+
+	if (isLoading)
+		return (
+			<div class="flex justify-center items-center">
+				<div
+					class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+					role="status"
+				></div>
 			</div>
 		);
-	if (status === "error") return `An error has occurred: ${error.message}`;
+
+	if (isError) return `An error has occurred: ${error.message}`;
 
 	const randomId = Math.floor(Math.random() * data?.length);
 
