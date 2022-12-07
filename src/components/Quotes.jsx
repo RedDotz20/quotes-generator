@@ -14,9 +14,6 @@ export default function Quotes() {
 	const { isFetching, isLoading, isError, data, error } = useQuery({
 		queryKey: ["quotes"],
 		queryFn: fetchAxiosQuotes,
-		refetchOnWindowFocus: false,
-		refetchOnMount: true,
-		staleTime: Infinity,
 	});
 
 	if (isFetching || isLoading) return <Loading />;
