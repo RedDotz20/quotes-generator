@@ -14,17 +14,11 @@ export const queryClient = new QueryClient({
 	},
 });
 
-let container = null;
-document.addEventListener("DOMContentLoaded", () => {
-	if (!container) {
-		container = document.getElementById("root");
-		ReactDOM.createRoot(document.getElementById("root")).render(
-			<React.StrictMode>
-				<QueryClientProvider client={queryClient}>
-					<App />
-					<ReactQueryDevtools initialIsOpen={true} />
-				</QueryClientProvider>
-			</React.StrictMode>
-		);
-	}
-});
+ReactDOM.createRoot(document.getElementById("root")).render(
+	<React.StrictMode>
+		<QueryClientProvider client={queryClient}>
+			<App />
+			<ReactQueryDevtools initialIsOpen={true} />
+		</QueryClientProvider>
+	</React.StrictMode>
+);
