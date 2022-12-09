@@ -20,7 +20,7 @@ export default function Quotes() {
 	if (isError) return `An error has occurred: ${error.message}`;
 
 	const randomId = Math.floor(Math.random() * data?.length);
-	console.log(data[randomId]);
+	// console.log(data[randomId]);
 
 	return (
 		<>

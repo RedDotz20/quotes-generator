@@ -1,7 +1,7 @@
 import React from "react";
 import Quotes from "./components/Quotes";
-import Button from "@mui/material/Button";
-import { refetchQuotes } from "./components/Quotes";
+import { QueryBtn } from "./components/Buttons";
+
 import "./styles/index.css";
 
 export default function App() {
@@ -13,14 +13,7 @@ export default function App() {
 			<div className="min-h-[150px] min-w-[720px] max-w-[720px] p-6 bg-white rounded-lg text-black flex flex-col justify-center mb-4">
 				<Quotes />
 			</div>
-			<Button
-				onClick={refetchQuotes}
-				className="w-full"
-				variant="contained"
-				color="success"
-			>
-				Generate New Random Quote
-			</Button>
+			<QueryBtn />
 		</>
 	);
 }
