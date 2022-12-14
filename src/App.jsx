@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Quotes from "./components/Quotes";
 import { QueryBtn } from "./components/Buttons";
-
+import { randomIdContext } from "./contexts/randomIdContext";
 import "./styles/index.css";
 
 export default function App() {
+	const [randomId, setRandomId] = useState(0);
 	return (
-		<>
+		<randomIdContext.Provider value={{ randomId, setRandomId }}>
 			<h1 className="font-semibold text-xl text-white mb-5">
 				QUOTES GENERATOR
 			</h1>
@@ -14,6 +15,6 @@ export default function App() {
 				<Quotes />
 			</div>
 			<QueryBtn />
-		</>
+		</randomIdContext.Provider>
 	);
 }

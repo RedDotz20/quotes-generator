@@ -1,26 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { queryClient } from "../main";
 import Loading from "./Loading";
+import { randomIdContext } from "../contexts/randomIdContext";
 
 export default function Quotes() {
-	const fetchAxiosQuotes = async () => {
-		return await axios
-			.get("https://type.fit/api/quotes")
-			.then((response) => response.data);
-	};
+	const { randomId } = useContext(randomIdContext);
+	const { isFetching, isLoading, isError, data, error } = useQuery(
+		["quotes"],
+		async () => {
+			return await axios
+				.get("https://type.fit/api/quotes")
+				.then((res) => res.data);
+		},
+		{ staleTime: Infinity }
+	);
 
-	const { isFetching, isLoading, isError, data, error } = useQuery({
-		queryKey: ["quotes"],
-		queryFn: fetchAxiosQuotes,
-	});
-
-	if (isFetching || isLoading) return <Loading />;
+	if (isLoading) return <Loading />;
 	if (isError) return `An error has occurred: ${error.message}`;
-
-	const randomId = Math.floor(Math.random() * data?.length);
-	// console.log(data[randomId]);
 
 	return (
 		<>
