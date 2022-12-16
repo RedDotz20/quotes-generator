@@ -1,13 +1,9 @@
-import { useContext } from "react";
-import { randomIdContext } from "../contexts/randomIdContext";
 import Button from "@mui/material/Button";
-import { useQuery, useIsFetching } from "react-query";
+import Loading from "./Loading";
+import { useQuery } from "react-query";
 
-export function QueryBtn() {
-	const { setRandomId } = useContext(randomIdContext);
-	const { data } = useQuery(["quotes"]);
-	const isFetchingQuotes = useIsFetching(["quotes"]);
-
+export default function QueryBtn({ setRandomId }) {
+	const { data, isFetching } = useQuery(["quotes"]);
 	return (
 		<div className="bg-green-600/90 font-semibold text-white">
 			<Button
@@ -15,9 +11,9 @@ export function QueryBtn() {
 				className="w-full"
 				variant="contained"
 				color="success"
-				disabled={isFetchingQuotes ? true : false}
+				disabled={isFetching ? true : false}
 			>
-				{isFetchingQuotes ? "L O A D I N G ..." : "Generate New Random Quote"}
+				{isFetching ? <Loading /> : "Generate New Random Quote"}
 			</Button>
 		</div>
 	);
