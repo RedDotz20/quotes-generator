@@ -16,13 +16,12 @@ export default function Quotes({ randomId }) {
 	if (isLoading || isFetching) return <Loading />;
 	if (isError) return `An error has occurred: ${error.message}`;
 
+	const { text, author } = data[randomId];
 	return (
 		<>
-			<h2 className="font-semibold">" {data[randomId].text} "</h2>
+			<h2 className="font-semibold">" {text} "</h2>
 			<h3 className="italic">
-				{data[randomId].author === null
-					? "- Unknown"
-					: `- ${data[randomId].author}`}
+				{author !== null ? `- ${author}` : "- Unknown"}
 			</h3>
 		</>
 	);
