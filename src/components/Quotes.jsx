@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import Loading from "./Loading";
 
 export default function Quotes({ randomId }) {
+	console.log("render Quotes");
 	const { data, isFetching, isLoading, isError, error } = useQuery(
 		["quotes"],
 		async () => {

@@ -5,6 +5,7 @@ import "./styles/index.css";
 
 export default function App() {
 	const [randomId, setRandomId] = useState(0);
+	console.log("render App");
 	return (
 		<>
 			<h1 className="font-semibold text-xl text-white mb-5">
