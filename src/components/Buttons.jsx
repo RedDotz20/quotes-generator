@@ -3,7 +3,6 @@ import Loading from "./Loading";
 import { useQuery } from "react-query";
 
 export default function QueryBtn({ setRandomId }) {
-	console.log("Render button");
 	const { data, isFetching } = useQuery(["quotes"]);
 	return (
 		<div className="bg-green-600/90 font-semibold text-white">

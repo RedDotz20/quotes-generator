@@ -3,7 +3,6 @@ import { useQuery } from "react-query";
 import Loading from "./Loading";
 
 export default function Quotes({ randomId }) {
-	console.log("render Quotes");
 	const { data, isFetching, isLoading, isError, error } = useQuery(
 		["quotes"],
 		async () => {
@@ -20,8 +19,8 @@ export default function Quotes({ randomId }) {
 	const { text, author } = data[randomId];
 	return (
 		<>
-			<h2 className="font-semibold">" {text} "</h2>
-			<h3 className="italic">
+			<h2 className="textShadow font-semibold">" {text} "</h2>
+			<h3 className="textShadow italic">
 				{author !== null ? `- ${author}` : "- Unknown"}
 			</h3>
 		</>
