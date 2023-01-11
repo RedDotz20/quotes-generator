@@ -9,8 +9,8 @@ export default function App() {
 
 	useEffect(() => {
 		document.body.style.backgroundColor = hexCode();
-		const card = document.getElementById("mainCard");
-		card.style.backgroundColor = complimentaryColor(hexCode());
+		// const card = document.getElementById("mainCard");
+		// card.style.backgroundColor = complimentaryColor(hexCode());
 	}, [randomId]);
 
 	return (
@@ -20,7 +20,7 @@ export default function App() {
 			</h1> */}
 			<div
 				id="mainCard"
-				className="min-h-[150px] min-w-[720px] max-w-[720px] p-6 rounded-lg text-black flex flex-col justify-center mb-4"
+				className="bg-white min-h-[150px] min-w-[720px] max-w-[720px] p-6 rounded-lg text-black flex flex-col justify-center mb-4"
 			>
 				<Quotes randomId={randomId} />
 			</div>
