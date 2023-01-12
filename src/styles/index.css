@@ -33,7 +33,7 @@ body {
 }
 
 #mainCard {
-	transition: 0.5s ease;
+	transition: 15s ease-in-out;
 }
 
 .textShadow {
