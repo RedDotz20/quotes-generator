@@ -7,33 +7,54 @@
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: 400;
-
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
-
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
 }
 
 #root {
-	max-width: 1280px;
-	margin: 0 auto;
+	min-height: 100vh;
+	min-width: 380px;
+	display: grid;
+	place-content: center;
 	padding: 2rem;
 	text-align: center;
 }
 
-body {
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
 	margin: 0;
-	display: flex;
-	place-items: center;
-	min-width: 320px;
+	padding: 0;
+	font: inherit;
+}
+
+body {
 	min-height: 100vh;
 	transition: background-color 0.5s ease;
 }
 
-#mainCard {
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+input,
+textarea,
+button,
+select {
+	font: inherit;
+}
+
+/* #mainCard {
+	transition: width 2s, height 4s;
 	transition: 15s ease-in-out;
+	transition: width 2s;
+} */
+
+.mainCard {
+	transition: width 0.5s ease-in-out;
 }
 
 .textShadow {

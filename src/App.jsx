@@ -9,22 +9,14 @@ export default function App() {
 
 	useEffect(() => {
 		document.body.style.backgroundColor = hexCode();
-		// const card = document.getElementById("mainCard");
-		// card.style.backgroundColor = complimentaryColor(hexCode());
 	}, [randomId]);
 
 	return (
-		<div className="test">
-			{/* <h1 className="font-semibold text-xl text-white mb-5">
-				QUOTES GENERATOR
-			</h1> */}
-			<div
-				id="mainCard"
-				className="bg-white min-h-[150px] min-w-[720px] max-w-[720px] p-6 rounded-lg text-black flex flex-col justify-center mb-4"
-			>
+		<>
+			<div className="mainCard bg-white min-h-[150px] p-6 rounded-lg text-black flex flex-col justify-center mb-4">
 				<Quotes randomId={randomId} />
 			</div>
 			<QueryBtn setRandomId={setRandomId} />
-		</div>
+		</>
 	);
 }
