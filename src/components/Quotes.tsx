@@ -2,7 +2,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import Loading from "./Loading";
 
-export default function Quotes({ randomId }) {
+export default function Quotes({ randomId }: any) {
 	const { data, isFetching, isLoading, isError, error } = useQuery(
 		["quotes"],
 		async () => {
@@ -14,13 +14,16 @@ export default function Quotes({ randomId }) {
 	);
 
 	if (isLoading || isFetching) return <Loading />;
-	if (isError) return `An error has occurred: ${error.message}`;
+
+	if (isError && error !== null && error instanceof Error && error.message) {
+		return <h1>An error has occurred: {error.message}</h1>;
+	}
 
 	const { text, author } = data[randomId];
 	return (
 		<>
-			<h2 className="textShadow font-semibold">" {text} "</h2>
-			<h3 className="textShadow italic">
+			<h2 className="w-full font-semibold">" {text} "</h2>
+			<h3 className="w-full italic">
 				{author !== null ? `- ${author}` : "- Unknown"}
 			</h3>
 		</>

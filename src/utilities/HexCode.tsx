@@ -9,7 +9,7 @@ export function hexCode() {
 	return color;
 }
 
-export function complimentaryColor(hex) {
+export function complimentaryColor(hex: string) {
 	// Convert the hex color code to RGB
 	let r = parseInt(hex.substring(0, 2), 16);
 	let g = parseInt(hex.substring(2, 4), 16);

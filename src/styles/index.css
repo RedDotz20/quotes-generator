@@ -47,16 +47,22 @@ select {
 	font: inherit;
 }
 
-/* #mainCard {
+#mainCard {
 	transition: width 2s, height 4s;
 	transition: 15s ease-in-out;
 	transition: width 2s;
-} */
+}
 
 .mainCard {
-	transition: width 0.5s ease-in-out;
+	min-width: fit-content;
+	transition: width 1s ease-in-out;
 }
 
 .textShadow {
 	text-shadow: 1px 0.5px 2px #ffffff;
 }
+
+/* .mainCard:hover {
+	width: 700px;
+	transition: width 3000ms ease-in-out;
+} */
