@@ -1,4 +1,4 @@
-export function hexCode() {
+function hexCode() {
 	let letters = "0123456789ABCDEF";
 	let color = "#";
 
@@ -9,7 +9,7 @@ export function hexCode() {
 	return color;
 }
 
-export function complimentaryColor(hex: string) {
+function complimentaryColor(hex: string) {
 	// Convert the hex color code to RGB
 	let r = parseInt(hex.substring(0, 2), 16);
 	let g = parseInt(hex.substring(2, 4), 16);
@@ -26,3 +26,5 @@ export function complimentaryColor(hex: string) {
 
 	return invertedHex;
 }
+
+export { hexCode, complimentaryColor };
