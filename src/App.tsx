@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-
-import { hexCode, complimentaryColor } from "./utilities/HexCode";
+import { hexCode } from "./utilities/HexCode";
 import Quotes from "./components/Quotes";
 import QueryBtn from "./components/Buttons";
 import "./styles/index.css";
