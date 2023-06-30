@@ -1,17 +1,15 @@
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "./Loading";
-
-const getQuotes = async () => {
-	return await axios
-		.get("https://type.fit/api/quotes")
-		.then((response) => response.data);
-};
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import Loading from './Loading';
 
 function Quotes({ randomId }: { randomId: number }) {
 	const quotesQuery = useQuery({
-		queryKey: ["quotes"],
-		queryFn: getQuotes,
+		queryKey: ['quotes'],
+		queryFn: async () => {
+			return await axios
+				.get('https://type.fit/api/quotes')
+				.then((res) => res.data);
+		},
 		staleTime: Infinity,
 	});
 
@@ -24,11 +22,13 @@ function Quotes({ randomId }: { randomId: number }) {
 
 	return (
 		<>
-			<h2 className="w-full font-semibold">" {data[randomId].text} "</h2>
+			<h2 className="font-semibold max-w-[600px] break-words">
+				"{data[randomId].text}"
+			</h2>
 			<h3 className="w-full italic">
 				{data[randomId].author !== null
 					? `- ${data[randomId].author}`
-					: "- Unknown"}
+					: '- Unknown'}
 			</h3>
 		</>
 	);

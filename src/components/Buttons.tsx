@@ -1,9 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import Loading from "./Loading";
+import { useQuery } from '@tanstack/react-query';
 
-interface randomIdInterface {
+type randomIdInterface = {
 	setRandomId: React.Dispatch<React.SetStateAction<number>>;
-}
+};
 
 interface Quote {
 	text: string;
@@ -11,8 +10,8 @@ interface Quote {
 }
 
 export default function QueryBtn({ setRandomId }: randomIdInterface) {
-	const { data, isFetching } = useQuery(["quotes"]);
-	const quotesArray: typeof data[] = data as Quote[];
+	const { data, isFetching } = useQuery(['quotes']);
+	const quotesArray: (typeof data)[] = data as Quote[];
 
 	const handleRandomId = () =>
 		setRandomId(Math.floor(Math.random() * quotesArray.length));

@@ -9,8 +9,14 @@
 	font-weight: 400;
 }
 
-#root {
+#root,
+body {
 	min-height: 100vh;
+}
+
+#root {
+	max-width: 1280px;
+	margin: 0 auto;
 	min-width: 380px;
 	display: grid;
 	place-content: center;
@@ -19,8 +25,8 @@
 }
 
 *,
-*::before,
-*::after {
+::after,
+::before {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -28,7 +34,6 @@
 }
 
 body {
-	min-height: 100vh;
 	transition: background-color 0.5s ease;
 }
 
@@ -40,29 +45,9 @@ video {
 	max-width: 100%;
 }
 
-input,
-textarea,
 button,
-select {
+input,
+select,
+textarea {
 	font: inherit;
 }
-
-#mainCard {
-	transition: width 2s, height 4s;
-	transition: 15s ease-in-out;
-	transition: width 2s;
-}
-
-.mainCard {
-	min-width: fit-content;
-	transition: width 1s ease-in-out;
-}
-
-.textShadow {
-	text-shadow: 1px 0.5px 2px #ffffff;
-}
-
-/* .mainCard:hover {
-	width: 700px;
-	transition: width 3000ms ease-in-out;
-} */
