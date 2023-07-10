@@ -1,28 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import Loading from './Loading';
 
-function Quotes({ randomId }: { randomId: number }) {
-	const quotesQuery = useQuery({
-		queryKey: ['quotes'],
-		queryFn: async () => {
-			return await axios
-				.get('https://type.fit/api/quotes')
-				.then((res) => res.data);
-		},
+import { CircularProgress } from '@mui/material';
+
+const fetchQuotes = async () => {
+	const response = await axios.get('https://type.fit/api/quotes');
+	return response.data;
+};
+
+type QuotesProps = { randomId: number };
+
+export default function Quotes({ randomId }: QuotesProps) {
+	const quotesQuery = useQuery(['quotes'], fetchQuotes, {
 		staleTime: Infinity,
 	});
 
 	const { data, isFetching, isLoading, isError, error } = quotesQuery;
 
-	if (isLoading || isFetching) return <Loading />;
-	if (isError && error !== null && error instanceof Error && error.message) {
+	if (isLoading || isFetching) return <CircularProgress />;
+
+	if (isError && error instanceof Error && error.message) {
 		return <h1>An error has occurred: {error.message}</h1>;
 	}
 
 	return (
 		<>
-			<h2 className="font-semibold max-w-[600px] break-words">
+			<h2 className="font-semibold w-full break-words mx-full">
 				"{data[randomId].text}"
 			</h2>
 			<h3 className="w-full italic">
@@ -33,5 +36,3 @@ function Quotes({ randomId }: { randomId: number }) {
 		</>
 	);
 }
-
-export default Quotes;
