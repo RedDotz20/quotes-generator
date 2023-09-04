@@ -12,7 +12,7 @@ export default function App() {
 
 	return (
 		<>
-			<div className="transition-width duration-2000 transition-height duration-4000 transition ease-in-out transition-width duration-2000 bg-white min-h-[150px] min-w-[350px] max-w-[600px] p-6 rounded-lg text-black flex flex-col justify-center mb-4 mx-4 items-center">
+			<div className="transition-width duration-2000 transition-height duration-4000 transition ease-in-out transition-width duration-2000 bg-white min-h-[150px] min-w-[400px] max-w-[400px] p-6 rounded-lg text-black flex flex-col justify-center mb-4 items-center">
 				<Quotes randomId={randomId} />
 			</div>
 			<QueryBtn setRandomId={setRandomId} />

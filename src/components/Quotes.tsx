@@ -8,9 +8,7 @@ const fetchQuotes = async () => {
 	return response.data;
 };
 
-type QuotesProps = { randomId: number };
-
-export default function Quotes({ randomId }: QuotesProps) {
+export default function Quotes({ randomId }: { randomId: number }) {
 	const quotesQuery = useQuery(['quotes'], fetchQuotes, {
 		staleTime: Infinity,
 	});
@@ -24,15 +22,13 @@ export default function Quotes({ randomId }: QuotesProps) {
 	}
 
 	return (
-		<>
-			<h2 className="font-semibold w-full break-words mx-full">
-				"{data[randomId].text}"
-			</h2>
-			<h3 className="w-full italic">
+		<div className="flex flex-col">
+			<h2 className="font-semibold break-words">"{data[randomId].text}"</h2>
+			<h3 className="italic">
 				{data[randomId].author !== null
 					? `- ${data[randomId].author}`
 					: '- Unknown'}
 			</h3>
-		</>
+		</div>
 	);
 }
