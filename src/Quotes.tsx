@@ -3,17 +3,18 @@ import axios from 'axios';
 
 import { CircularProgress } from '@mui/material';
 
-const fetchQuotes = async () => {
-	const response = await axios.get('https://type.fit/api/quotes');
-	return response.data;
+const fetchQuotesAPI = async () => {
+	return await axios
+		.get('https://type.fit/api/quotes')
+		.then((response) => response.data)
+		.catch((err) => console.error(err));
 };
 
 export default function Quotes({ randomId }: { randomId: number }) {
-	const quotesQuery = useQuery(['quotes'], fetchQuotes, {
-		staleTime: Infinity,
+	const { data, isFetching, isLoading, isError, error } = useQuery({
+		queryKey: ['quotes'],
+		queryFn: fetchQuotesAPI,
 	});
-
-	const { data, isFetching, isLoading, isError, error } = quotesQuery;
 
 	if (isLoading || isFetching) return <CircularProgress />;
 
